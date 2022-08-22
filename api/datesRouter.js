@@ -15,9 +15,13 @@ router.route('/').get(async (req, res, next)=>{
 router.route('/:date').get(async (req, res, next)=>{
   try {
     let dateParam = req.params.date
-    let date = new Date(Number(dateParam))
+    let date;
+    if (isNaN(+dateParam)){
+      date = new Date(dateParam)
+    } else {
+      date = new Date(+dateParam)
+    }
     let str = date.toUTCString();
-    console.log(str)
 
     if (date.getTime()){
       res.status(200).json({unix: date.getTime(), utc: str})

@@ -2,7 +2,7 @@ import express from 'express'
 const router = express.Router()
 
 router.route('/').get(async (req, res, next)=>{
-  try {    
+  try {
     let date = new Date()
     let str = date.toString()
     let format = str.slice(0,3) + ', '+ str.slice(8,10) + ' ' + str.slice(4,7) + ' ' + str.slice(11, 28)
@@ -14,8 +14,10 @@ router.route('/').get(async (req, res, next)=>{
 
 router.route('/:date').get(async (req, res, next)=>{
   try {
-    let date = new Date(req.params.date)
-    let str = date.toString();
+    let dateParam = req.params.date
+    let date = new Date(Number(dateParam))
+    let str = date.toUTCString();
+    console.log(str)
     let format = str.slice(0,3) + ', '+ str.slice(8,10) + ' ' + str.slice(4,7) + ' ' + str.slice(11, 28)
 
     if (date.getTime()){

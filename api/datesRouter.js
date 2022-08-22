@@ -18,10 +18,9 @@ router.route('/:date').get(async (req, res, next)=>{
     let date = new Date(Number(dateParam))
     let str = date.toUTCString();
     console.log(str)
-    let format = str.slice(0,3) + ', '+ str.slice(8,10) + ' ' + str.slice(4,7) + ' ' + str.slice(11, 28)
 
     if (date.getTime()){
-      res.status(200).json({unix: date.getTime(), utc: format})
+      res.status(200).json({unix: date.getTime(), utc: str})
     } else {
       res.status(404).json({error: 'Invalid Date'}) 
     }

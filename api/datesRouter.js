@@ -11,7 +11,10 @@ router.route('/').get(async (req, res, next)=>{
     console.log(error)
   }
 })
-
+router.route('/whoami').get( async (req, res, next)=>{
+  res.status(200).send({
+    ipaddress: req.ip, language: req.headers['accept-language'], software: req.headers['user-agent']})
+})
 router.route('/:date').get(async (req, res, next)=>{
   try {
     let dateParam = req.params.date

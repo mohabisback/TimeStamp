@@ -3,8 +3,10 @@ const data = [{original_url:"https://google.com", short_url:40}]
 const router = express.Router()
 router.route('/').post(async (req, res, next)=>{
   try {
-    console.log(req.body)
-    const original_url = new URL(req.body.url)
+    const url = req.body.url
+    const urlRegex = /^(http|https)(:\/\/)/;
+    if (!urlRegex.test(url)) {return res.json({ error: 'invalid url' })}
+    const original_url = new URL(url)
     const obj = data.find((obj)=> obj.original_url === original_url)
     if (obj) {
       res.send(obj)
